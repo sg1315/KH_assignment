@@ -1,3 +1,3 @@
-##01_profile-card
+01_profile-card
 
-##02_user-manager
+02_user-manager
