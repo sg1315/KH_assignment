@@ -9,7 +9,7 @@ const UserDetail = ({users}) => {
         <div>
             <h2>userName : {user.name}</h2>
             <h2>userAge : {user.age}</h2>
-            <h2>userIsOnline : {user.isOnline === true ? "온라인" : "오프라인"}</h2>
+            <h2>userIsOnline : {user.isOnline === "true" ? "온라인" : "오프라인"}</h2>
         </div>
     )
 }
