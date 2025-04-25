@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useUser } from './useContext/UserContext'
 
 const Container = styled.div`
     width: 320px;
@@ -39,15 +40,16 @@ const StatusDot = styled.span`
 `;
 
 const UserCard = ({user}) => {
+    
     return (
         <Container>
             <Card>
                 <Link to={`user/${user.id}`}>
-                <UserName>{user.name}</UserName>
-                <UserAge>{user.age}세</UserAge>
-                <UserStatus>
-                    <StatusDot isOnline={user.isOnline}>●</StatusDot> {user.isOnline ? '온라인 상태입니다.' : '오프라인 상태입니다.'}
-                </UserStatus>
+                    <UserName>{user.name}</UserName>
+                    <UserAge>{user.age}세</UserAge>
+                    <UserStatus>
+                        <StatusDot isOnline={user.isOnline}>●</StatusDot> {user.isOnline ? '온라인 상태입니다.' : '오프라인 상태입니다.'}
+                    </UserStatus>
                 </Link>
             </Card>
         </Container>

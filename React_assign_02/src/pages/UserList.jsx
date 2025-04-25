@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { UserProvider, useUser } from '../components/useContext/UserContext'
 import UserCard from '../components/UserCard'
 
 const Container = styled.div`
@@ -9,7 +10,9 @@ const Container = styled.div`
     gap: 16px;
 `
 
-const UserList = ({users}) => {
+const UserList = () => {
+    const users = useUser();
+
     return (
         <Container>
             {users.map((users) => (
