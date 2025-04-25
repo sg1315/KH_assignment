@@ -16,7 +16,8 @@ function App() {
     <UserProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<UserList/>}/>
+          <Route path='/' element={<UserList />} />
+          <Route path="/user" element={<UserRegistration />} />
           <Route path="/user/:id" element={<UserDetail />} />
         </Routes>
       </BrowserRouter>

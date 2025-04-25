@@ -36,11 +36,10 @@ const UserStatus = styled.div`
 `;
 
 const StatusDot = styled.span`
-    color: ${props => props.isOnline ? '#4CAF50' : '#F44336'};
+    color: ${props => props.$isOnline ? '#4CAF50' : '#F44336'};
 `;
 
-const UserCard = ({user}) => {
-    
+const UserCard = ({ user }) => {
     return (
         <Container>
             <Card>
@@ -48,12 +47,13 @@ const UserCard = ({user}) => {
                     <UserName>{user.name}</UserName>
                     <UserAge>{user.age}세</UserAge>
                     <UserStatus>
-                        <StatusDot isOnline={user.isOnline}>●</StatusDot> {user.isOnline ? '온라인 상태입니다.' : '오프라인 상태입니다.'}
+                        <StatusDot $isOnline={user.isOnline}>●</StatusDot> 
+                        {user.isOnline ? '온라인 상태입니다.' : '오프라인 상태입니다.'}
                     </UserStatus>
                 </Link>
             </Card>
         </Container>
-    )
-}
+    );
+};
 
 export default UserCard

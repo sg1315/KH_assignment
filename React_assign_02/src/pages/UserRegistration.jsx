@@ -1,8 +1,10 @@
 import React from 'react'
-import UseInput from '../components/UseInput'
+import UseInput from '../components/useContext/UseInput'
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../components/useContext/UserContext';
 
-const UserRegistration = ({users, setUsers}) => {
+const UserRegistration = () => {
+    const { addUser } = useUser;
     const id = UseInput('');
     const name = UseInput('');
     const age = UseInput('');
@@ -17,7 +19,7 @@ const UserRegistration = ({users, setUsers}) => {
             isOnline: isOnline.value === "true" ? true : false
         };
 
-        setUsers([...users, newUser]);
+        addUser(newUser);
         navigate('/');
     };
 

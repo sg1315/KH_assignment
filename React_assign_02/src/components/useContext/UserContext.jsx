@@ -1,9 +1,9 @@
-import React, {createContext, useContext} from 'react'
+import React, {createContext, useContext, useState} from 'react'
 
 const UserContext = React.createContext();
 
 export function UserProvider({children}) {
-    const users = [
+    const [users, setUsers] = useState([
         {
             id: "user01",
             name: '김승기',
@@ -35,10 +35,14 @@ export function UserProvider({children}) {
             age: 82,
             isOnline: true
         }
-    ];
+    ]);
+    
+    const addUser = (newUser) => {
+        setUsers(prev => [...prev, newUser]);
+    };
 
     return (
-        <UserContext.Provider value={users}>
+        <UserContext.Provider value={{ users, addUser }}>
             {children}
         </UserContext.Provider>
     )
