@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import UserDetail from './pages/UserDetail'
 import UserRegistration from "./pages/UserRegistration"
 import { UserProvider } from './components/useContext/UserContext'
+import Nav from './components/Nav'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   return (
     <UserProvider>
       <BrowserRouter>
+        <Nav />
         <Routes>
           <Route path='/' element={<UserList />} />
           <Route path="/user" element={<UserRegistration />} />

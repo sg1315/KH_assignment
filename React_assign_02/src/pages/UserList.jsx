@@ -11,25 +11,17 @@ const Container = styled.div`
     gap: 16px;
 `
 
-const RegistButton = styled.button`
-    background-color: white;
-    color: black;
-`
+
 
 const UserList = () => {
     const { users } = useUser();
 
     return (
-        <>
-            <RegistButton>
-                <Link to="/user">유저 등록</Link>
-            </RegistButton>
-            <Container>
-                {users.map((users) => (
-                    <UserCard key={users.id} user={users} />
-                ))}
-            </Container>
-        </>
+        <Container>
+            {users.map((users) => (
+                <UserCard key={users.id} user={users} />
+            ))}
+        </Container>
     )
 }
 
