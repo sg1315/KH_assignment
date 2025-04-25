@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../components/useContext/UserContext';
 
 const UserRegistration = () => {
-    const { addUser } = useUser;
+    const { addUser } = useUser();
     const id = UseInput('');
     const name = UseInput('');
     const age = UseInput('');
