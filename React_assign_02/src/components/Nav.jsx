@@ -27,6 +27,16 @@ const LinkText = styled(Link)`
     text-decoration: none;
     padding: 12px;
     margin: 12px;
+
+    &:hover {
+        background: #808080;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    &:active {
+        background: #696969;
+    }
 `
 
 

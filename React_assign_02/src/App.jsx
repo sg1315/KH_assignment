@@ -11,6 +11,7 @@ import { UserProvider } from './components/useContext/UserContext'
 import Nav from './components/Nav'
 
 
+
 function App() {
 
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' element={<UserList />} />
           <Route path="/user" element={<UserRegistration />} />
           <Route path="/user/:id" element={<UserDetail />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

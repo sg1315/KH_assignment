@@ -8,32 +8,32 @@ export function UserProvider({children}) {
             id: "user01",
             name: '김승기',
             age: 27,
-            isOnline: true
+            isOnline: true,
         }, {
             id: "user02",
             name: '둘리',
             age: 42,
-            isOnline: true
+            isOnline: true,
         }, {
             id: "user03",
             name: '또치',
             age: 44,
-            isOnline: false
+            isOnline: false,
         }, {
             id: "user04",
             name: '도우너',
             age: 42,
-            isOnline: true
+            isOnline: true,
         }, {
             id: "user05",
             name: '마이콜',
             age: 61,
-            isOnline: false
+            isOnline: false,
         }, {
             id: "user06",
             name: '고길동',
             age: 82,
-            isOnline: true
+            isOnline: true,
         }
     ]);
     
@@ -41,8 +41,12 @@ export function UserProvider({children}) {
         setUsers(prev => [...prev, newUser]);
     };
 
+    const deleteUser = (id) => {
+        setUsers(prev => prev.filter(user => user.id !== id));
+    };
+
     return (
-        <UserContext.Provider value={{ users, addUser }}>
+        <UserContext.Provider value={{ users, addUser, deleteUser }}>
             {children}
         </UserContext.Provider>
     )
