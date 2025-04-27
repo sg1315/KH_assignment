@@ -93,6 +93,11 @@ const UserRegistration = () => {
     const navigate = useNavigate();
 
     const userRegist = () => {
+
+        if (id.value.trim() === '') {
+            alert('ID를 입력하세요.');
+            return;
+        }
         
         if (name.value.trim() === '') {
             alert('이름을 입력하세요.');
