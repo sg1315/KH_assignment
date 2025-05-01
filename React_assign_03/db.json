@@ -1,9 +1,8 @@
 {
-  "todos": [
-    { "id": 1, "text": "밥먹기", "completed": false },
-    { "id": 2, "text": "공부하기", "completed": true },
-    { "id": 3, "text": "과제하기", "completed": false },
-    { "id": 4, "text": "집에가기", "completed": false }
-  ]
+    "boards": [
+        { "boardNo": 1, "title": "게시글1", "content": "내용내용1", "userId": "user01", "createDate": "2025-05-01" },
+        { "boardNo": 2, "title": "게시글2", "content": "내용내용2", "userId": "user01", "createDate": "2025-05-02" },
+        { "boardNo": 3, "title": "게시글3", "content": "내용내용3", "userId": "user02", "createDate": "2025-05-01" },
+        { "boardNo": 4, "title": "게시글4", "content": "내용내용4", "userId": "user02", "createDate": "2025-05-02" }
+    ]
 }
-
