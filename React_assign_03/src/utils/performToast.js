@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 //공통으로 적용할 옵션을 객체로 정의
 const defaultOption = {
-  position: 'top-right',
+  position: 'top-center',
   autoClose: 2500,
   hideProgressBar: false,
   closeOnClick: true,

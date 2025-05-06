@@ -1,8 +1,192 @@
 {
-    "boards": [
-        { "boardNo": 1, "title": "게시글1", "content": "내용내용1", "userId": "user01", "createDate": "2025-05-01" },
-        { "boardNo": 2, "title": "게시글2", "content": "내용내용2", "userId": "user01", "createDate": "2025-05-02" },
-        { "boardNo": 3, "title": "게시글3", "content": "내용내용3", "userId": "user02", "createDate": "2025-05-01" },
-        { "boardNo": 4, "title": "게시글4", "content": "내용내용4", "userId": "user02", "createDate": "2025-05-02" }
-    ]
+  "users": [
+    {
+      "id": "user01",
+      "password": "pass01",
+      "name": "둘리",
+      "email": "user01@naver.com"
+    },
+    {
+      "id": "user02",
+      "password": "pass02",
+      "name": "또치",
+      "email": "user02@naver.com"
+    },
+    {
+      "id": "user03",
+      "password": "pass03",
+      "name": "도우너",
+      "email": "user03@naver.com"
+    }
+  ],
+  "boards": [
+    {
+      "id": "1",
+      "category": "영화",
+      "title": "야당",
+      "content": "강하늘, 유해진, 박해준",
+      "userId": "user01",
+      "createDate": "25.05.01"
+    },
+    {
+      "id": "2",
+      "category": "음악",
+      "title": "Stereo Hearts",
+      "content": "띵곡임 꼭 듣도록",
+      "userId": "user01",
+      "createDate": "25.05.02"
+    },
+    {
+      "id": "3",
+      "category": "책",
+      "title": "자바 프로그래밍 입문",
+      "content": "자바에 관한 책",
+      "userId": "user02",
+      "createDate": "25.05.01"
+    },
+    {
+      "id": "4",
+      "category": "영화",
+      "title": "거룩한 밤",
+      "content": "마동석 나옴",
+      "userId": "user02",
+      "createDate": "25.05.02"
+    },
+    {
+      "id": "5",
+      "category": "책",
+      "title": "운명을 바꾸는 글쓰기",
+      "content": "글쓰기의 힘을 느껴보자",
+      "userId": "user01",
+      "createDate": "25.05.03"
+    },
+    {
+      "id": "6",
+      "category": "음악",
+      "title": "Imagine",
+      "content": "존 레논의 명곡",
+      "userId": "user03",
+      "createDate": "25.05.04"
+    },
+    {
+      "id": "7",
+      "category": "영화",
+      "title": "인셉션",
+      "content": "꿈 속의 꿈",
+      "userId": "user02",
+      "createDate": "25.05.03"
+    },
+    {
+      "id": "8",
+      "category": "책",
+      "title": "마흔에 읽는 손자병법",
+      "content": "지혜를 배우자",
+      "userId": "user03",
+      "createDate": "25.05.04"
+    },
+    {
+      "id": "9",
+      "category": "음악",
+      "title": "Dynamite",
+      "content": "BTS의 에너지 넘치는 곡",
+      "userId": "user01",
+      "createDate": "25.05.04"
+    },
+    {
+      "id": "10",
+      "category": "영화",
+      "title": "인터스텔라",
+      "content": "우주의 끝에서 가족을 향한 여정",
+      "userId": "user02",
+      "createDate": "25.05.05"
+    },
+    {
+      "id": "11",
+      "category": "책",
+      "title": "개미",
+      "content": "프랑스 스릴러의 고전",
+      "userId": "user02",
+      "createDate": "25.05.05"
+    },
+    {
+      "id": "12",
+      "category": "음악",
+      "title": "Shape of You",
+      "content": "에드 시런의 대표곡",
+      "userId": "user03",
+      "createDate": "25.05.05"
+    },
+    {
+      "id": "13",
+      "category": "영화",
+      "title": "범죄도시4",
+      "content": "마석도 컴백!",
+      "userId": "user01",
+      "createDate": "25.05.05"
+    },
+    {
+      "id": "14",
+      "category": "책",
+      "title": "혼자 공부하는 파이썬",
+      "content": "입문자에게 딱!",
+      "userId": "user03",
+      "createDate": "25.05.06"
+    },
+    {
+      "id": "15",
+      "category": "음악",
+      "title": "Love Dive",
+      "content": "IVE의 중독성 있는 멜로디",
+      "userId": "user01",
+      "createDate": "25.05.06"
+    },
+    {
+      "id": "16",
+      "category": "영화",
+      "title": "듄: 파트2",
+      "content": "에픽 SF의 정수",
+      "userId": "user03",
+      "createDate": "25.05.06"
+    },
+    {
+      "id": "17",
+      "category": "책",
+      "title": "데이터베이스 시스템",
+      "content": "기초부터 심화까지",
+      "userId": "user01",
+      "createDate": "25.05.06"
+    },
+    {
+      "id": "18",
+      "category": "음악",
+      "title": "LALISA",
+      "content": "리사의 강렬한 솔로 데뷔",
+      "userId": "user02",
+      "createDate": "25.05.06"
+    },
+    {
+      "id": "19",
+      "category": "영화",
+      "title": "서울의 봄",
+      "content": "역사의 뒤편을 다룬 영화",
+      "userId": "user02",
+      "createDate": "25.05.06"
+    },
+    {
+      "id": "20",
+      "category": "책",
+      "title": "지적 대화를 위한 넓고 얕은 지식",
+      "content": "상식의 깊이를 넓혀보자",
+      "userId": "user01",
+      "createDate": "25.05.06"
+    },
+    {
+      "id": "21",
+      "category": "음악",
+      "title": "2002",
+      "content": "Anne-Marie의 인기곡",
+      "userId": "user03",
+      "createDate": "25.05.06"
+    }
+  ]
 }

@@ -1,6 +1,45 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import useUserStore from '../store/userStore';
+import { IoHome } from "react-icons/io5";
+import { FaRegUserCircle } from "react-icons/fa";
+import { IoLogInOutline } from "react-icons/io5";
+import { IoLogOutOutline } from "react-icons/io5";
+
+
+const Nav = () => {
+  const navigate = useNavigate();
+  
+  // userStore에서 로그인 상태와 사용자 정보 가져오기
+  const { user, isAuthenticated, logout } = useUserStore();
+
+  const logoutBtn = () => {
+    logout();
+    navigate('/');
+  };
+
+  return (
+    <NavBar>
+      <NavContent>
+        <NavLeft>
+          <LinkText to="/"><IoHome /></LinkText>
+        </NavLeft>
+        <NavRight>
+          {isAuthenticated ? (
+            <UserInfo>
+              {user.name}님 안녕하세요.
+              <LinkText to="/userInfo"><FaRegUserCircle /></LinkText>
+              <LogoutBtn onClick={logoutBtn}>로그아웃 <IoLogOutOutline /></LogoutBtn>
+            </UserInfo>
+          ) : (
+            <LoginBtn onClick={() => navigate(`/login`)}>로그인 <IoLogInOutline /></LoginBtn> // 로그인 버튼
+          )}
+        </NavRight>
+      </NavContent>
+    </NavBar>
+  );
+};
 
 const NavBar = styled.div`
   position: fixed;
@@ -51,6 +90,8 @@ const NavRight = styled.div`
   height: 100%;
   display: flex;
   justify-content: end;
+  align-items: center;
+  padding-right: 20px;
 `;
 
 const LoginBtn = styled.button`
@@ -66,19 +107,23 @@ const LoginBtn = styled.button`
   }
 `;
 
-const Nav = () => {
-  return (
-    <NavBar>
-      <NavContent>
-        <NavLeft>
-          <LinkText to="/">메인</LinkText>
-        </NavLeft>
-        <NavRight>
-          <LoginBtn>로그인</LoginBtn>
-        </NavRight>
-      </NavContent>
-    </NavBar>
-  );
-};
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  color: white;
+`;
+
+const LogoutBtn = styled.button`
+  width: 120px;
+  height: 50%;
+  padding: 12px;
+  margin: 12px;
+  background: #808080;
+  color: white;
+
+  &:hover {
+    border-color: white;
+  }
+`;
 
 export default Nav;
