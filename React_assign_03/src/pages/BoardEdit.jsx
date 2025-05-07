@@ -2,16 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useBoardStore from '../store/boardStore';
 import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
+import {
+  Container,
+  Form,
+  TopArear,
+  Select,
+  TitleInput,
+  TextArea,
+  ButtonArea,
+  SubmitButton,
+} from '../components/styled/BoardEdit';
 
 const BoardEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getBoardDetail, updateBoard } = useBoardStore();
   const [board, setBoard] = useState(null);
-  
+
   // react-hook-form을 사용하여 폼 상태 관리
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     const fetchBoard = async () => {
@@ -54,19 +68,13 @@ const BoardEdit = () => {
             <option value="음악">음악</option>
             <option value="책">책</option>
           </Select>
-        
-          <TitleInput
-            type="text"
-            {...register('title', { required: '제목을 입력하세요.' })}
-          />
+
+          <TitleInput type="text" {...register('title', { required: '제목을 입력하세요.' })} />
           {errors.title && <p>{errors.title.message}</p>}
         </TopArear>
-        
 
-          <TextArea
-            {...register('content', { required: '내용을 입력하세요.' })}
-          />
-          {errors.content && <p>{errors.content.message}</p>}
+        <TextArea {...register('content', { required: '내용을 입력하세요.' })} />
+        {errors.content && <p>{errors.content.message}</p>}
 
         <ButtonArea>
           <SubmitButton type="submit">수정 완료</SubmitButton>
@@ -75,83 +83,5 @@ const BoardEdit = () => {
     </Container>
   );
 };
-
-
-const Container = styled.div`
-  margin-top: 70px;
-  width: 80%;
-  min-width: 1200px;
-  height: 80vh;
-  background: #f5f5f5;
-  color: #222;
-  border: 1px solid #ccc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Form = styled.form`
-  width: 80%;
-  height: 80%;
-`;
-
-const TopArear = styled.div`
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const Select = styled.select`
-  width: 18%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-`;
-
-const TitleInput = styled.input`
-  width: 80%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  height: 70%;
-  resize: none;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  min-height: 150px;
-`;
-
-const ButtonArea = styled.div`
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: right;
-  gap: 10px;
-`;
-
-const SubmitButton = styled.button`
-  width: 20%;
-  padding: 12px 20px;
-  background-color: #c2c2ff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #b8b8fe;
-  }
-`;
 
 export default BoardEdit;

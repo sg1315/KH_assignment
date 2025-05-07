@@ -64,9 +64,7 @@ const useBoardStore = create((set) => ({
   addBoard: async (formData, userId) => {
     const res = await axios.get('http://localhost:3001/boards');
     const boards = res.data;
-    const maxId = boards.length > 0
-    ? Math.max(...boards.map(board => board.id))
-    : 0;
+    const maxId = boards.length > 0 ? Math.max(...boards.map((board) => board.id)) : 0;
 
     const newBoard = {
       ...formData,
@@ -82,7 +80,7 @@ const useBoardStore = create((set) => ({
   getBoardDetail: async (boardId) => {
     try {
       const res = await axios.get(`http://localhost:3001/boards/${boardId}`);
-      return res.data; // 해당 게시글 리턴
+      return res.data;
     } catch (error) {
       console.error('게시글 가져오기 실패:', error);
       throw new Error('게시글 정보를 가져오는 데 실패했습니다.');
@@ -110,8 +108,6 @@ const useBoardStore = create((set) => ({
       throw new Error('게시글 삭제에 실패했습니다.');
     }
   },
-  
-
 }));
 
 export default useBoardStore;

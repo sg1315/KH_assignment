@@ -2,16 +2,14 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useUserStore from '../store/userStore';
-import { IoHome } from "react-icons/io5";
-import { FaRegUserCircle } from "react-icons/fa";
-import { IoLogInOutline } from "react-icons/io5";
-import { IoLogOutOutline } from "react-icons/io5";
-
+import { IoHome } from 'react-icons/io5';
+import { FaRegUserCircle } from 'react-icons/fa';
+import { IoLogInOutline } from 'react-icons/io5';
+import { IoLogOutOutline } from 'react-icons/io5';
 
 const Nav = () => {
   const navigate = useNavigate();
-  
-  // userStore에서 로그인 상태와 사용자 정보 가져오기
+
   const { user, isAuthenticated, logout } = useUserStore();
 
   const logoutBtn = () => {
@@ -23,17 +21,25 @@ const Nav = () => {
     <NavBar>
       <NavContent>
         <NavLeft>
-          <LinkText to="/"><IoHome /></LinkText>
+          <LinkText to="/">
+            <IoHome />
+          </LinkText>
         </NavLeft>
         <NavRight>
           {isAuthenticated ? (
             <UserInfo>
               {user.name}님 안녕하세요.
-              <LinkText to="/userInfo"><FaRegUserCircle /></LinkText>
-              <LogoutBtn onClick={logoutBtn}>로그아웃 <IoLogOutOutline /></LogoutBtn>
+              <LinkText to="/userInfo">
+                <FaRegUserCircle />
+              </LinkText>
+              <LogoutBtn onClick={logoutBtn}>
+                로그아웃 <IoLogOutOutline />
+              </LogoutBtn>
             </UserInfo>
           ) : (
-            <LoginBtn onClick={() => navigate(`/login`)}>로그인 <IoLogInOutline /></LoginBtn> // 로그인 버튼
+            <LoginBtn onClick={() => navigate(`/login`)}>
+              로그인 <IoLogInOutline />
+            </LoginBtn> // 로그인 버튼
           )}
         </NavRight>
       </NavContent>
