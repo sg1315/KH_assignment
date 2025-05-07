@@ -11,6 +11,8 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  padding: 20px;
 `;
 
 export const Content = styled.div`
@@ -25,7 +27,7 @@ export const TopArear = styled.div`
   border-bottom: 1px solid #aaa;
 `;
 
-export const TitleArear = styled.div`
+export const TitleArea = styled.div`
   width: 100%;
   height: 50%;
   font-size: 24px;
@@ -37,25 +39,20 @@ export const TitleArear = styled.div`
 export const WriterArea = styled.div`
   width: 100%;
   height: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const WriterLeft = styled.div`
   font-size: 14px;
   display: flex;
   justify-content: left;
   align-items: center;
 `;
 
-export const CenterArear = styled.div`
-  width: 100%;
-  height: 70%;
-  display: flex;
-  justify-content: left;
-  align-items: start;
-  padding: 20px 0;
-  font-size: 20px;
-`;
-
-export const BottomArear = styled.div`
-  width: 100%;
-  height: 10%;
+export const WriterRight = styled.div`
+  font-size: 14px;
   display: flex;
   justify-content: right;
   align-items: center;
@@ -92,4 +89,60 @@ export const DeleteButton = styled.button`
   &:hover {
     background-color: #fb6262;
   }
+`;
+
+export const CenterArea = styled.div`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: left;
+  align-items: start;
+  padding: 20px 0;
+  font-size: 20px;
+`;
+
+export const ReplyArea = styled.div`
+  width: 90%;
+  height: 30%;
+`;
+
+export const ReplyAdd = styled.div`
+  background: #ffffff;
+  width: 100%;
+  height: 40%;
+  padding: 0 30px;
+  margin-bottom: 20px;
+`;
+
+export const ReplyList = styled.div`
+  width: 100%;
+  height: 60%;
+`;
+
+export const ReplyContent = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  padding: 0 30px;
+  margin-bottom: 10px;
+`;
+
+export const ReplyUser = styled.label`
+  width: 10%;
+  font-size: 16px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid black;
+`;
+
+export const ReplyComent = styled.p`
+  width: 90%;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
 `;

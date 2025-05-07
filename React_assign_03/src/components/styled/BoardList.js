@@ -91,13 +91,14 @@ export const WriteButton = styled.button`
 
 export const BoardTable = styled.table`
   width: 100%;
+
   border-collapse: collapse;
   text-align: center;
   font-size: 13px;
 
   th,
   td {
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     padding: 8px;
   }
 

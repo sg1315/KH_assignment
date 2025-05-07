@@ -17,6 +17,12 @@
       "password": "pass03",
       "name": "도우너",
       "email": "user03@naver.com"
+    },
+    {
+      "id": "user04",
+      "password": "pass04",
+      "name": "1234",
+      "email": "1234@1234"
     }
   ],
   "boards": [
@@ -187,6 +193,50 @@
       "content": "Anne-Marie의 인기곡",
       "userId": "user03",
       "createDate": "25.05.06"
+    }
+  ],
+  "replys": [
+    {
+      "id": "1",
+      "boardId": "21",
+      "userId": "user02",
+      "coment": "좋은 글입니다.",
+      "createDate": "25.05.06"
+    },
+    {
+      "id": "d398",
+      "boardId": "21",
+      "userId": "user01",
+      "coment": "굿",
+      "createDate": "25.05.07"
+    },
+    {
+      "id": "4a21",
+      "boardId": "20",
+      "userId": "user03",
+      "coment": "좋은 책입니다.",
+      "createDate": "25.05.07"
+    },
+    {
+      "id": "7867",
+      "boardId": "20",
+      "userId": "anonymous",
+      "coment": "",
+      "createDate": "25.05.07"
+    },
+    {
+      "id": "8934",
+      "boardId": "21",
+      "userId": "anonymous",
+      "coment": "ㅇㅇㅇ",
+      "createDate": "25.05.07"
+    },
+    {
+      "id": "d9bc",
+      "boardId": null,
+      "userId": "user04",
+      "coment": "ㅇㅇㅇㅇ",
+      "createDate": "25.05.07"
     }
   ]
 }

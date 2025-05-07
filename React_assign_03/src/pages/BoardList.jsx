@@ -24,7 +24,7 @@ const BoardList = () => {
   const [searchType, setSearchType] = useState('all');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 10;
+  const boardsPerPage = 10;
   const navigate = useNavigate();
   const { isAuthenticated } = useUserStore();
 
@@ -52,10 +52,10 @@ const BoardList = () => {
   };
 
   // 페이징 계산
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = filteredBoards.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(filteredBoards.length / postsPerPage);
+  const indexOfLastBoard = currentPage * boardsPerPage;
+  const indexOfFirstBoard = indexOfLastBoard - boardsPerPage;
+  const currentBoards = filteredBoards.slice(indexOfFirstBoard, indexOfLastBoard);
+  const totalPages = Math.ceil(filteredBoards.length / boardsPerPage);
 
   return (
     <Container>
@@ -99,7 +99,7 @@ const BoardList = () => {
           </tr>
         </thead>
         <tbody>
-          {currentPosts.map((board) => (
+          {currentBoards.map((board) => (
             <tr key={board.id}>
               <td>{board.id}</td>
               <td>{board.category}</td>

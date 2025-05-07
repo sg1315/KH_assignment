@@ -2,16 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useBoardStore from '../store/boardStore';
 import useUserStore from '../store/userStore';
+import useReplyStore from '../store/replyStore';
+import ReplyAdd from '../components/RepleyAdd';
 import {
   Container,
   Content,
   TopArear,
-  TitleArear,
+  TitleArea,
   WriterArea,
-  CenterArear,
-  BottomArear,
+  WriterLeft,
+  WriterRight,
+  CenterArea,
   EditButton,
   DeleteButton,
+  ReplyArea,
+  ReplyList,
+  ReplyContent,
+  ReplyUser,
+  ReplyComent,
 } from '../components/styled/BoardDetail';
 
 const BoardDetail = () => {
@@ -19,6 +27,7 @@ const BoardDetail = () => {
   const [board, setBoard] = useState(null);
   const { getBoardDetail, deleteBoard } = useBoardStore();
   const { user, isAuthenticated } = useUserStore();
+  const { replys, getReplysByBoardId } = useReplyStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,6 +42,10 @@ const BoardDetail = () => {
 
     fetchBoard();
   }, [id, getBoardDetail]);
+
+  useEffect(() => {
+    getReplysByBoardId(id);
+  }, [id]);
 
   if (!board) return <div>Loading...</div>;
 
@@ -59,23 +72,39 @@ const BoardDetail = () => {
     <Container>
       <Content>
         <TopArear>
-          <TitleArear>
+          <TitleArea>
             [{board.category}] {board.title}
-          </TitleArear>
+          </TitleArea>
           <WriterArea>
-            {board.userId} | {board.createDate}
+            <WriterLeft>
+              {board.userId} | {board.createDate}
+            </WriterLeft>
+            <WriterRight>
+              {canEditOrDelete && (
+                <div>
+                  <EditButton onClick={boardEdit}>수정</EditButton>
+                  <DeleteButton onClick={boardDelete}>삭제</DeleteButton>
+                </div>
+              )}
+            </WriterRight>
           </WriterArea>
         </TopArear>
-        <CenterArear>{board.content}</CenterArear>
-        <BottomArear>
-          {canEditOrDelete && (
-            <div>
-              <EditButton onClick={boardEdit}>수정</EditButton>
-              <DeleteButton onClick={boardDelete}>삭제</DeleteButton>
-            </div>
-          )}
-        </BottomArear>
+        <CenterArea>{board.content}</CenterArea>
       </Content>
+      <ReplyArea>
+        <ReplyAdd />
+        <ReplyList>
+          {replys.map((reply) => (
+            <ReplyContent>
+              <ReplyUser key={reply.id}>{reply.userId}</ReplyUser>
+              <ReplyComent>
+                <div>{reply.coment}</div>
+                <div>{reply.createDate}</div>
+              </ReplyComent>
+            </ReplyContent>
+          ))}
+        </ReplyList>
+      </ReplyArea>
     </Container>
   );
 };
