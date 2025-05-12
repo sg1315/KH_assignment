@@ -135,40 +135,17 @@ function updateBoard(){
     });
 };
 
-// function deleteBoard(){
-//     if(!confirm("글을 정말 삭제하시겠습니까?"))
-//         return;
-//
-//     const path = window.location.pathname;
-//     const pathParts = path.split('/');
-//     const boardId = pathParts[pathParts.length - 1];
-//
-//
-//     $.ajax({
-//         url: "http://localhost:8888/board/api/" + boardId,
-//         type: "DELETE",
-//         success: function(response) {
-//             alert("글이 성공적으로 삭제되었습니다.");
-//             window.location.href = "/";
-//         },
-//         error: function(error) {
-//             alert("글 삭제에 실패했습니다.");
-//             console.error("board insert failed");
-//         }
-//     });
-// };
+function deleteBoard(){
+    if(!confirm("글을 정말 삭제하시겠습니까?"))
+        return;
 
-function deleteBoard() {
-    if (!confirm("글을 정말 삭제하시겠습니까?")) return;
+    // const path = window.location.pathname;
+    // const pathParts = path.split('/');
+    // const boardId = pathParts[pathParts.length - 1];
 
-    // 쿼리스트링에서 board_id 추출
     const params = new URLSearchParams(window.location.search);
     const boardId = params.get("board_id");
 
-    if (!boardId) {
-        alert("게시글 ID를 찾을 수 없습니다.");
-        return;
-    }
 
     $.ajax({
         url: "http://localhost:8888/board/api/" + boardId,
@@ -179,7 +156,7 @@ function deleteBoard() {
         },
         error: function(error) {
             alert("글 삭제에 실패했습니다.");
-            console.error("board delete failed");
+            console.error("board insert failed");
         }
     });
-}
+};
