@@ -17,12 +17,21 @@ public class BoardServiceImpl implements BoardService {
     public List<Board> findAll() { return boardMapper.findAll(); }
 
     @Override
-    public Board getBoardById(Long boardId) {
-        return boardMapper.selectBoardById(boardId);
+    public Board findOne(Long boardId) {
+        return boardMapper.findOne(boardId);
     }
 
     @Override
-    public int deleteBoard(Long boardId) {
-        return boardMapper.deleteBoard(boardId);
+    public int save(Board board) { return boardMapper.save(board); }
+
+    @Override
+    public int delete(Long boardId) {
+        return boardMapper.delete(boardId);
+    }
+
+    @Override
+    public Long update(Board board) {
+        boardMapper.update(board);
+        return board.getBoardId();
     }
 }

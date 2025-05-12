@@ -2,6 +2,11 @@ function init(){
     getBoardList(drawBoardList);
 }
 
+function getUrlPrams(id){
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(id);
+}
+
 function initBoard(){
     const urlParams = new URLSearchParams(window.location.search);
     const boardId = urlParams.get('board_id');
@@ -79,7 +84,7 @@ function insertBoard(){
 
     const formData = new FormData();
     formData.append("title", document.querySelector('#title').value)
-    formData.append("userId", document.querySelector('#userId').value)
+    formData.append("user_id", document.querySelector('#userId').value)
     formData.append("contents", document.querySelector('#contents').value)
     formData.append("upfile", document.querySelector('#upfile').files[0])
 
@@ -106,9 +111,7 @@ function updateBoard(){
     if(!confirm("글을 정말 수정하시겠습니까?"))
         return;
 
-    const path = window.location.pathname;
-    const pathParts = path.split('/');
-    const boardId = pathParts[pathParts.length - 1];
+    const boardId = getUrlPrams('board_id');
 
     const formData = new FormData();
     formData.append("title", document.querySelector('#title').value)
@@ -126,7 +129,7 @@ function updateBoard(){
         success: function(response) {
             console.log(response)
             alert("글이 성공적으로 수정되었습니다.");
-            window.location.href = "/boardDetail/" + boardId; 
+            window.location.href = "/boardDetail.html?board_id=" + boardId;
         },
         error: function(error) {
             alert("글 등록에 실패했습니다.");
@@ -139,16 +142,12 @@ function deleteBoard(){
     if(!confirm("글을 정말 삭제하시겠습니까?"))
         return;
 
-    // const path = window.location.pathname;
-    // const pathParts = path.split('/');
-    // const boardId = pathParts[pathParts.length - 1];
-
-    const params = new URLSearchParams(window.location.search);
-    const boardId = params.get("board_id");
+    const boardId = getUrlPrams('board_id');
 
 
     $.ajax({
-        url: "http://localhost:8888/board/api/" + boardId,
+        // url: "http://localhost:8888/api/board/" + boardId,
+        url: "http://localhost:8888/board/" + boardId,
         type: "DELETE",
         success: function(response) {
             alert("글이 성공적으로 삭제되었습니다.");

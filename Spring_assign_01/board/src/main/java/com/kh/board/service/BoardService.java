@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface BoardService {
     List<Board> findAll();
-    Board getBoardById(Long boardId);
-    int deleteBoard(Long boardId);
+    Board findOne(Long boardId);
+    int save(Board board);
+    int delete(Long boardId);
+    Long update(Board board);
 }

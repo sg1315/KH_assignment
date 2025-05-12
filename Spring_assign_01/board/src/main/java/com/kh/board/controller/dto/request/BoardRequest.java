@@ -10,22 +10,39 @@ public class BoardRequest {
 
     @Getter
     @Setter
-    @Builder
-    public static class RequestDTO{
-
+    public static class CreateDTO{
+        private String user_id;
         private String title;
-        private String userId;
         private String contents;
-        private String upfile;
+        private String file_name;
 
-        public static RequestDTO formEntity(Board board) {
-            return RequestDTO.builder()
-                             .title(board.getTitle())
-                             .userId(board.getMemberEmail())
-                             .contents(board.getContents())
-                             .upfile(board.getFileName())
-                             .build();
+        public Board toEntity() {
+            return Board.builder()
+                    .memberEmail(user_id)
+                    .title(title)
+                    .contents(contents)
+                    .fileName(file_name)
+                    .build();
+        }
+    }
 
+    @Getter
+    @Setter
+    public static class UpdateDTO{
+        private Long boardId;
+        private String user_id;
+        private String title;
+        private String contents;
+        private String origin_file;
+
+        public Board toEntity() {
+            return Board.builder()
+                    .boardId(boardId)
+                    .memberEmail(user_id)
+                    .title(title)
+                    .contents(contents)
+                    .fileName(origin_file)
+                    .build();
         }
     }
 }

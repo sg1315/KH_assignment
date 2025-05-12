@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BoardMapper {
     List<Board> findAll();
-    Board selectBoardById(Long boardId);
-    int deleteBoard(Long boardId);
+    Board findOne(Long boardId);
+    int save(Board board);
+    int delete(Long boardId);
+    int update(Board board);
 }

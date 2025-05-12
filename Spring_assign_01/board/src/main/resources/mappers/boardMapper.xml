@@ -5,27 +5,52 @@
 <mapper namespace="com.kh.board.mapper.BoardMapper">
   <select id="findAll" resultType="Board">
     SELECT BOARD_ID boardId,
-          TITLE title,
-          CONTENTS contents,
-          FILE_NAME fileName,
-          MEMBER_EMAIL memberEmail,
-          CREATE_AT createdAt,
-          UPDATE_AT updatedAt
+      TITLE title,
+      MEMBER_EMAIL memberEmail,
+      CREATE_AT createdAt,
+      UPDATE_AT updatedAt
     FROM BOARD
   </select>
-    <select id="selectBoardById" parameterType="long" resultType="com.kh.board.entity.Board">
-        SELECT BOARD_ID boardId,
-        TITLE title,
-        CONTENTS contents,
-        FILE_NAME fileName,
-        MEMBER_EMAIL memberEmail,
-        CREATE_AT createdAt,
-        UPDATE_AT updatedAt
-        FROM BOARD
-        WHERE BOARD_ID = #{boardId}
-    </select>
-    <delete id="deleteBoard" parameterType="long">
-        DELETE FROM BOARD
-        WHERE BOARD_ID = #{boardId}
-    </delete>
+  <select id="findOne" parameterType="long" resultType="Board">
+    SELECT BOARD_ID boardId,
+      TITLE title,
+      CONTENTS contents,
+      FILE_NAME fileName,
+      MEMBER_EMAIL memberEmail,
+      CREATE_AT createdAt,
+      UPDATE_AT updatedAt
+    FROM BOARD
+    WHERE BOARD_ID = #{boardId}
+  </select>
+  <insert id="save">
+    INSERT
+    INTO BOARD(
+      TITLE,
+      CONTENTS,
+      MEMBER_EMAIL,
+      FILE_NAME,
+      CREATE_AT,
+      UPDATE_AT
+    ) VALUES(
+      #{title},
+      #{contents},
+      #{memberEmail},
+      #{fileName},
+      CURRENT_TIMESTAMP,
+      CURRENT_TIMESTAMP
+    )
+  </insert>
+  <delete id="delete">
+    DELETE
+    FROM BOARD
+    WHERE BOARD_ID = #{boardId}
+  </delete>
+  <update id="update">
+    UPDATE BOARD
+      SET TITLE = #{title},
+          CONTENTS = #{contents},
+          FILE_NAME = #{fileName},
+          UPDATE_AT = CURRENT_TIMESTAMP
+    WHERE BOARD_ID = #{boardId}
+  </update>
 </mapper>
