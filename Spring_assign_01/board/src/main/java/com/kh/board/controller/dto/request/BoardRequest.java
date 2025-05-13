@@ -1,6 +1,7 @@
 package com.kh.board.controller.dto.request;
 
 import com.kh.board.entity.Board;
+import com.kh.board.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +17,10 @@ public class BoardRequest {
         private String contents;
         private String file_name;
 
-        public Board toEntity() {
+        public Board toEntity(Member member) {
             return Board.builder()
-                    .memberEmail(user_id)
                     .title(title)
+                    .member(member)
                     .contents(contents)
                     .fileName(file_name)
                     .build();
@@ -35,10 +36,10 @@ public class BoardRequest {
         private String contents;
         private String origin_file;
 
-        public Board toEntity() {
+        public Board toEntity(Member member) {
             return Board.builder()
+                    .member(member)
                     .boardId(boardId)
-                    .memberEmail(user_id)
                     .title(title)
                     .contents(contents)
                     .fileName(origin_file)

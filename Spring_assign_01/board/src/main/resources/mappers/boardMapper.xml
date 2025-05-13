@@ -7,8 +7,8 @@
     SELECT BOARD_ID boardId,
       TITLE title,
       MEMBER_EMAIL memberEmail,
-      CREATE_AT createdAt,
-      UPDATE_AT updatedAt
+      CREATED_AT createdAt,
+      UPDATED_AT updatedAt
     FROM BOARD
   </select>
   <select id="findOne" parameterType="long" resultType="Board">
@@ -17,8 +17,8 @@
       CONTENTS contents,
       FILE_NAME fileName,
       MEMBER_EMAIL memberEmail,
-      CREATE_AT createdAt,
-      UPDATE_AT updatedAt
+      CREATED_AT createdAt,
+      UPDATED_AT updatedAt
     FROM BOARD
     WHERE BOARD_ID = #{boardId}
   </select>
@@ -29,8 +29,8 @@
       CONTENTS,
       MEMBER_EMAIL,
       FILE_NAME,
-      CREATE_AT,
-      UPDATE_AT
+      CREATED_AT,
+      UPDATED_AT
     ) VALUES(
       #{title},
       #{contents},
