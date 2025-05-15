@@ -1,7 +1,8 @@
 package com.kh.jpa.entity;
 
+import com.kh.jpa.enums.CommonEnums;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Getter
 @Table(name = "BOARD")
 public class Board {
@@ -23,7 +27,7 @@ public class Board {
     @Column(name = "board_title", nullable = false, length = 100)
     private String boardTitle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "board_writer", nullable = false)
     private Member member;
 
@@ -37,21 +41,27 @@ public class Board {
     @Column(name = "change_name", length = 100)
     private String changeName;
 
-    @ColumnDefault("0")
-    private int count;
+    private Integer count;
 
-    @CreationTimestamp
     @Column(name = "create_date", updatable = false)
     private LocalDateTime createDate;
 
-    @ColumnDefault("'Y'")
-    @Column(nullable = false)
-    private Character status;
+    @Column(length = 1, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private CommonEnums.Status status;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board")
     private List<Reply> replies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board")
     private List<Board_Tag> boardTags = new ArrayList<>();
 
+    @PrePersist
+    public void prePersist() {
+        this.createDate = LocalDateTime.now();
+        this.count = 0;
+        if (this.status == null) {
+            this.status = CommonEnums.Status.Y;
+        }
+    }
 }

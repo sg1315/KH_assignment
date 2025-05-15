@@ -1,9 +1,12 @@
 package com.kh.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 @Getter
 @Table(name = "BOARD_TAG")
 public class Board_Tag {
