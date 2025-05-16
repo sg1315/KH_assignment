@@ -16,13 +16,12 @@ public class Profile {
     @Column(name = "profile_id")
     private Long profileId;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Member member;
-
     @Column(name = "profile_image", length = 100)
     private String profileImage;
 
     @Column(length = 300)
     private String intro;
+
+    @OneToOne(mappedBy = "profile")
+    private Member member;
 }

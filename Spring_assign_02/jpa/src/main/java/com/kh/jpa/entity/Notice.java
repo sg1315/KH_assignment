@@ -2,7 +2,6 @@ package com.kh.jpa.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -22,18 +21,18 @@ public class Notice {
     @Column(name = "notice_title", nullable = false, length = 100)
     private String noticeTitle;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "notice_writer", nullable = false)
-    private Member member;
-
     @Column(name = "notice_content", nullable = false, length = 200)
     private String noticeContent;
 
     @Column(name = "create_date", updatable = false) //최초생성시간은 변경이 불가하도록
     private LocalDateTime createDate;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "notice_writer", nullable = false)
+    private Member member;
+
     @PrePersist
-    public void prePersist() {
+    protected void prePersist() {
         this.createDate = LocalDateTime.now();
     }
 }

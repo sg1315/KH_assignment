@@ -3,8 +3,6 @@ package com.kh.jpa.entity;
 import com.kh.jpa.enums.CommonEnums;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Clob;
 import java.time.LocalDateTime;
@@ -27,10 +25,6 @@ public class Board {
     @Column(name = "board_title", nullable = false, length = 100)
     private String boardTitle;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "board_writer", nullable = false)
-    private Member member;
-
     @Lob
     @Column(name = "board_content", nullable = false)
     private Clob boardContent;
@@ -50,14 +44,21 @@ public class Board {
     @Enumerated(EnumType.STRING)
     private CommonEnums.Status status;
 
-    @OneToMany(mappedBy = "board")
+    //Board : Member (N:1)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_writer", nullable = false)
+    private Member member;
+
+    //Board : Reply (1 : N)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Reply> replies = new ArrayList<>();
 
+    //BoardTag : Board (N : 1)
     @OneToMany(mappedBy = "board")
     private List<Board_Tag> boardTags = new ArrayList<>();
 
     @PrePersist
-    public void prePersist() {
+    protected void prePersist() {
         this.createDate = LocalDateTime.now();
         this.count = 0;
         if (this.status == null) {

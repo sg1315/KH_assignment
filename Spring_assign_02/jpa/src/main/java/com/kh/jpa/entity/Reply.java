@@ -1,9 +1,8 @@
 package com.kh.jpa.entity;
 
+import com.kh.jpa.enums.CommonEnums;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Clob;
 import java.time.LocalDateTime;
@@ -25,23 +24,31 @@ public class Reply {
     @Column(name = "reply_content", length = 400, nullable = false)
     private Clob replyContent;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    //어떤게시글의 댓글인지 게시글 정보
+    //댓글 : 게시글 (N : 1)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ref_bno", nullable = false)
     private Board board;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    //어떤사람의 댓글인지 작성자 정보
+    //댓글 : 작성자 (N : 1)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reply_writer")
     private Member member;
 
     @Column(name = "create_date", nullable = false, updatable = false)
     private LocalDateTime createDate;
 
-    @ColumnDefault("'Y'")
-    @Column(nullable = false)
-    private String status;
+    @Column(length = 1, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private CommonEnums.Status status;
+
 
     @PrePersist
-    public void prePersist() {
+    protected void prePersist() {
         this.createDate = LocalDateTime.now();
+        if (status == null) {
+            this.status = CommonEnums.Status.Y;
+        }
     }
 }

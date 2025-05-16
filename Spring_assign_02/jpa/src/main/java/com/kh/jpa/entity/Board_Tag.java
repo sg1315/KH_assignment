@@ -12,12 +12,18 @@ import lombok.*;
 public class Board_Tag {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "board_tag_id")
+    private Long boardTagId;
+
+
+    //게시글 : 중계테이블 (1 : N)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_no")
+    @JoinColumn(name = "board_no", nullable = false)
     private Board board;
 
-    @Id
+    //테그 : 중게테이블 (1 : N)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tag_id")
+    @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
 }
