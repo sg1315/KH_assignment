@@ -31,6 +31,11 @@ public class Notice {
     @JoinColumn(name = "notice_writer", nullable = false)
     private Member member;
 
+    public void updateNoticeInfo(String noticeTitle, String noticeContent) {
+        this.noticeTitle = noticeTitle;
+        this.noticeContent = noticeContent;
+    }
+
     @PrePersist
     protected void prePersist() {
         this.createDate = LocalDateTime.now();

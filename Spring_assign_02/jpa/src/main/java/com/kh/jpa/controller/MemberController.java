@@ -15,7 +15,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-
     //회원등록API
     @PostMapping
     public ResponseEntity<String> addMember(@RequestBody MemberDto.Create createDto) {

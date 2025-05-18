@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDto.Response updateMember(String userId, MemberDto.Update updateDto) {
         Member member = memberRepository.findOne(userId)
-                                        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         member.updateMemberInfo(
                 updateDto.getUser_name(),
                 updateDto.getEmail(),
