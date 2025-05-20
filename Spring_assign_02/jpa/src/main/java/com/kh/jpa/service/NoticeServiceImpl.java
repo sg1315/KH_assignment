@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -50,5 +53,20 @@ public class NoticeServiceImpl implements NoticeService {
         Notice notice = noticeRepository.findOne(noticeNo)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 공지입니다."));
         noticeRepository.delete(notice);
+    }
+
+    @Override
+    public List<NoticeDto.Response> findAllNotice() {
+        return noticeRepository.findAll().stream()
+                .map(NoticeDto.Response::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NoticeDto.Response> findByTitle(String title) {
+        return noticeRepository.findByTitle(title)
+                .stream()
+                .map(NoticeDto.Response::toDto)
+                .collect(Collectors.toList());
     }
 }

@@ -4,7 +4,6 @@ import com.kh.jpa.enums.CommonEnums;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Clob;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class Board {
 
     @Lob
     @Column(name = "board_content", nullable = false)
-    private Clob boardContent;
+    private String boardContent;
 
     @Column(name = "origin_name", length = 100)
     private String originName;
@@ -49,13 +48,27 @@ public class Board {
     @JoinColumn(name = "board_writer", nullable = false)
     private Member member;
 
+    public void changeMember(Member member) {
+        this.member = member;
+        if(!member.getBoards().contains(this)) {
+            member.getBoards().add(this);
+        }
+    }
+
     //Board : Reply (1 : N)
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<Reply> replies = new ArrayList<>();
 
     //BoardTag : Board (N : 1)
-    @OneToMany(mappedBy = "board")
-    private List<Board_Tag> boardTags = new ArrayList<>();
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<BoardTag> boardTags = new ArrayList<>();
+
+    public void changeFile(String originName, String changeName) {
+        this.originName = originName;
+        this.changeName = changeName;
+    }
 
     @PrePersist
     protected void prePersist() {

@@ -7,26 +7,33 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/notices")
 @RequiredArgsConstructor
 public class NoticeController {
 
     private final NoticeService noticeService;
-    private final MemberService memberService;
 
-    //공지등록
-    @PostMapping("/{userId}")
-    public ResponseEntity<String> addNotice(@RequestBody NoticeDto.Create createDto, @PathVariable String userId) {
+    //공지 등록
+    @PostMapping()
+    public ResponseEntity<String> addNotice(@RequestBody NoticeDto.Create createDto, @RequestParam String userId) {
         String noticeNo = noticeService.createNotice(createDto, userId).toString();
         //return new ResponseEntity<String>(userId,HttpStatus.OK);
         return ResponseEntity.ok(noticeNo); //위와 동일한 역할
     }
 
-    //공지조회
+    //공지 조회
     @GetMapping("/{noticeNo}")
     public ResponseEntity<NoticeDto.Response> getNotice(@PathVariable String noticeNo) {
         return ResponseEntity.ok(noticeService.findNotice(noticeNo));
+    }
+
+    //전체 공지 조회
+    @GetMapping
+    public ResponseEntity<List<NoticeDto.Response>> getAllNotices() {
+        return ResponseEntity.ok(noticeService.findAllNotice());
     }
 
     //공지수정
@@ -42,5 +49,11 @@ public class NoticeController {
     public ResponseEntity<Void> deleteNotice(@PathVariable String noticeNo) {
         noticeService.deleteNotice(noticeNo);
         return ResponseEntity.ok().build();
+    }
+
+    //제목으로 공지 검색
+    @GetMapping("/search/title")
+    public ResponseEntity<List<NoticeDto.Response>> getAllNoticesByTitle(@RequestParam String title) {
+        return ResponseEntity.ok(noticeService.findByTitle(title));
     }
 }
