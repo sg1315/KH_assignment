@@ -52,4 +52,9 @@ public class BoardRepositoryImpl implements BoardRepository {
         em.persist(board);
         return board.getBoardNo();
     }
+
+    @Override
+    public void delete(Board board) {
+        em.remove(board);
+    }
 }

@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -49,6 +50,22 @@ public class BoardController {
     public ResponseEntity<Long> addBoard(@ModelAttribute BoardDto.Create createDto) throws Exception {
         Long BoardNo = boardService.createBoard(createDto);
         return ResponseEntity.ok(BoardNo);
+    }
+
+    //게시글 삭제
+    @DeleteMapping("/{boardNo}")
+    public ResponseEntity<Void> deleteBoard(@PathVariable Long boardNo) {
+        boardService.deleteBoard(boardNo);
+        return ResponseEntity.ok().build();
+    }
+
+    //게시글 삭제
+    @PatchMapping("/{boardNo}")
+    public ResponseEntity<BoardDto.Response> updateBoard(
+            @PathVariable Long boardNo,
+            @ModelAttribute BoardDto.Update updateBoard) throws IOException {
+
+        return ResponseEntity.ok(boardService.updateBoard(boardNo, updateBoard));
     }
 
 }

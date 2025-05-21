@@ -96,4 +96,66 @@ public class BoardServiceImpl implements BoardService {
 
         return boardRepository.save(board);
     }
+
+    @Override
+    public Long deleteBoard(Long boardNo) {
+        Board board = boardRepository.findById(boardNo)
+                .orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없습니다."));
+
+        if (board.getChangeName() != null) {
+            new File(UPLOAD_PATH + board.getChangeName()).delete();
+        }
+
+        boardRepository.delete(board);
+
+        return null;
+    }
+
+    @Override
+    public BoardDto.Response updateBoard(Long boardNo, BoardDto.Update boardUpdate) throws IOException {
+        Board board = boardRepository.findById(boardNo)
+                .orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없습니다."));
+
+        String changeName = board.getChangeName();
+        String originName = board.getOriginName();
+
+        if(boardUpdate.getFile() != null && !boardUpdate.getFile().isEmpty()) {
+            originName = boardUpdate.getFile().getOriginalFilename();
+            changeName = UUID.randomUUID() + "_" + originName;
+
+            File uploadDir = new File(UPLOAD_PATH);
+            if(!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            boardUpdate.getFile().transferTo(new File(UPLOAD_PATH + changeName));
+        }
+
+        board.changeTitle(boardUpdate.getBoard_title());
+        board.changeContent(boardUpdate.getBoard_content());
+        board.changeFile(originName, changeName);
+
+        if(boardUpdate.getTags() != null && !boardUpdate.getTags().isEmpty()) {
+
+            //기존BoardTag -> 연결이 끊기면 필요가 있을까? -> X
+            //연결된 boardTags의 영속성을 제거한다. -> orphanRemoval = true 설정이 되었다면 실제 DB에서 제거
+            board.getBoardTags().clear();
+
+            //tag가 왔다.
+            for(String tagName : boardUpdate.getTags()) {
+                //tag를 이름으로 조회해서 없으면 새로 만들어라.
+                Tag tag = tagRepository.findByTagName(tagName)
+                        .orElseGet(() -> tagRepository.save(Tag.builder()
+                                .tagName(tagName)
+                                .build()));
+
+                BoardTag boardTag = BoardTag.builder()
+                        .tag(tag)
+                        .build();
+                boardTag.changeBoard(board);
+            }
+        }
+
+        return BoardDto.Response.toDto(board);
+    }
 }

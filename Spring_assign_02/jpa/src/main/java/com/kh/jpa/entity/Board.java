@@ -55,13 +55,28 @@ public class Board {
         }
     }
 
+    public void changeTitle(String boardTitle) {
+        if(boardTitle != null && !boardTitle.isEmpty()) {
+            this.boardTitle = boardTitle;
+        }
+    }
+
+    public void changeContent(String boardContent) {
+        if(boardContent != null && !boardContent.isEmpty()) {
+            this.boardContent = boardContent;
+        }
+
+    }
+
     //Board : Reply (1 : N)
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Reply> replies = new ArrayList<>();
 
-    //BoardTag : Board (N : 1)
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    //Board : BoardTag (1 : N)
+    //orphanRemoval = true  (N : 1 또는 1 : N) 연관관계에서 자식 생명주기를 부모가 완전히 통제하겠다.
+    //부모 엔티티에서 자식과의 관계가 제거되면, 자식도 자동으로 삭제
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<BoardTag> boardTags = new ArrayList<>();
 
