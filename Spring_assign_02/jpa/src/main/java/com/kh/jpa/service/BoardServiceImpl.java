@@ -98,7 +98,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Long deleteBoard(Long boardNo) {
+    public void deleteBoard(Long boardNo) {
         Board board = boardRepository.findById(boardNo)
                 .orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없습니다."));
 
@@ -107,8 +107,6 @@ public class BoardServiceImpl implements BoardService {
         }
 
         boardRepository.delete(board);
-
-        return null;
     }
 
     @Override
