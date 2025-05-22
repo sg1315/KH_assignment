@@ -23,7 +23,7 @@ const useUserStore = create((set, get) => ({
   login: async (id, password) => {
     set({ loading: true, error: null });
   
-    try {
+    try {//post로 바꿀것.
       const res = await axios.get(`http://localhost:3001/users?id=${id}&password=${password}`);
   
       if (res.data.length > 0) {
