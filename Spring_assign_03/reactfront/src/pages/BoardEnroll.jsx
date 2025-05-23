@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import dayjs from 'dayjs';
 import {
   SpinnerWrapper,
   Container,
@@ -24,8 +23,8 @@ import useUserStore from '../store/userStore';
 
 const schema = yup.object().shape({
   category: yup.string().required('카테고리를 선택해주세요.'),
-  title: yup.string().required('제목을 입력해주세요.'),
-  content: yup.string().required('내용을 입력해주세요.'),
+  board_title: yup.string().required('제목을 입력해주세요.'),
+  board_content: yup.string().required('내용을 입력해주세요.'),
 });
 
 const BoardEnroll = () => {
@@ -46,9 +45,8 @@ const BoardEnroll = () => {
     setIsSubmitting(true);
     const fullData = {
       ...data,
-      createDate: dayjs().format('YY.MM.DD'),
     };
-    await addBoard(fullData, user?.id);
+    await addBoard(fullData, user?.user_id);
     setTimeout(() => {
       navigate('/');
     }, 500);
@@ -75,12 +73,12 @@ const BoardEnroll = () => {
           </Select>
           {errors.category && <Error>{errors.category.message}</Error>}
 
-          <TitleInput type="text" placeholder="제목을 입력하세요" {...register('title')} />
+          <TitleInput type="text" placeholder="제목을 입력하세요" {...register('board_title')} />
         </TopArear>
-        {errors.title && <Error>{errors.title.message}</Error>}
+        {errors.board_title && <Error>{errors.board_title.message}</Error>}
 
-        <TextArea placeholder="내용을 입력하세요" {...register('content')} />
-        {errors.content && <Error>{errors.content.message}</Error>}
+        <TextArea placeholder="내용을 입력하세요" {...register('board_content')} />
+        {errors.board_content && <Error>{errors.board_content.message}</Error>}
 
         <ButtonArea>
           <CancelButton type="button" onClick={() => navigate('/')}>

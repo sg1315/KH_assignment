@@ -28,7 +28,7 @@ const Nav = () => {
         <NavRight>
           {isAuthenticated ? (
             <UserInfo>
-              {user.name}님 안녕하세요.
+              {user.user_name}님 안녕하세요.
               <LinkText to="/userInfo">
                 <FaRegUserCircle />
               </LinkText>
@@ -39,7 +39,7 @@ const Nav = () => {
           ) : (
             <LoginBtn onClick={() => navigate(`/login`)}>
               로그인 <IoLogInOutline />
-            </LoginBtn> // 로그인 버튼
+            </LoginBtn>
           )}
         </NavRight>
       </NavContent>

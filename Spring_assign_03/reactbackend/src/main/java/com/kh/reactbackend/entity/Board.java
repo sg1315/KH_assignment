@@ -46,6 +46,13 @@ public class Board {
         }
     }
 
+    public void changeCategory(Category category) {
+        this.category = category;
+        if(!category.getBoards().contains(this)) {
+            category.getBoards().add(this);
+        }
+    }
+
     public void changeTitle(String boardTitle) {
         if(boardTitle != null && !boardTitle.isEmpty()) {
             this.boardTitle = boardTitle;

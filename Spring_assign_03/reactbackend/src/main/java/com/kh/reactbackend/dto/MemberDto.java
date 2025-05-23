@@ -27,6 +27,13 @@ public class MemberDto {
 
     @Getter
     @Setter
+    public static class LoginRequestDto {
+        private String user_id;
+        private String user_pwd;
+    }
+
+    @Getter
+    @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
@@ -39,7 +46,6 @@ public class MemberDto {
         public static Response toDto(Member member) {
             return Response.builder()
                     .user_id(member.getUserId())
-                    .user_pwd(member.getUserPwd())
                     .user_name(member.getUserName())
                     .email(member.getEmail())
                     .build();

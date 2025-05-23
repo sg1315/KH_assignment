@@ -21,31 +21,44 @@ const useUserStore = create((set, get) => ({
   },
 
   login: async (id, password) => {
-    set({ loading: true, error: null });
-  
-    try {//post로 바꿀것.
-      const res = await axios.get(`http://localhost:3001/users?id=${id}&password=${password}`);
-  
-      if (res.data.length > 0) {
-        set({
-          user: res.data[0],
-          isAuthenticated: true,
-          loading: false,
-          error: null,
-        });
-      } else {
-        set({
-          error: '아이디나 비밀번호가 잘못되었습니다.',
-          loading: false,
-          isAuthenticated: false,
-        });
+  set({ loading: true, error: null });
+
+  try {
+    const res = await axios.post(
+      'http://localhost:8888/api/members/login',
+      {
+        user_id: id,
+        user_pwd: password,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
-    } catch (error) {
-      console.error('로그인 오류:', error);
+    );
+
+    const user = res.data;
+
+    if (user && user.user_id) {
       set({
-        error: '로그인 중 오류가 발생했습니다.',
+        user,
+        isAuthenticated: true,
+        loading: false,
+        error: null,
+      });
+    } else {
+      set({
+        error: '아이디나 비밀번호가 잘못되었습니다.',
         loading: false,
         isAuthenticated: false,
+      });
+    }
+  } catch (error) {
+    console.error('로그인 오류:', error);
+    set({
+      error: '로그인 중 오류가 발생했습니다.',
+      loading: false,
+      isAuthenticated: false,
       });
     }
   },
@@ -64,7 +77,7 @@ const useUserStore = create((set, get) => ({
     try {
       set({ loading: true });
   
-      const res = await axios.post('http://localhost:3001/users', userData);
+      const res = await axios.post('http://localhost:8888/api/members', userData);
       set((state) => ({
         users: [...state.users, res.data],
         loading: false,

@@ -18,9 +18,9 @@ import {
 } from '../components/styled/UserEnroll';
 
 const schema = Yup.object().shape({
-  id: Yup.string().required('아이디를 입력하세요.'),
-  password: Yup.string().required('비밀번호를 입력하세요.'),
-  name: Yup.string().required('이름을 입력하세요.'),
+  user_id: Yup.string().required('아이디를 입력하세요.'),
+  user_pwd: Yup.string().required('비밀번호를 입력하세요.'),
+  user_name: Yup.string().required('이름을 입력하세요.'),
   email: Yup.string().required('이메일을 입력하세요.'),
 });
 
@@ -49,20 +49,20 @@ const UserEnrollForm = () => {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputArea>
             <Label>아이디</Label>
-            <ValueInput {...register('id')} />
-            {errors.id && <Error>{errors.id.message}</Error>}
+            <ValueInput {...register('user_id')} />
+            {errors.user_id && <Error>{errors.user_id.message}</Error>}
           </InputArea>
 
           <InputArea>
             <Label>비밀번호</Label>
-            <ValueInput type="password" {...register('password')} />
-            {errors.password && <Error>{errors.password.message}</Error>}
+            <ValueInput type="password" {...register('user_pwd')} />
+            {errors.user_pwd && <Error>{errors.user_pwd.message}</Error>}
           </InputArea>
 
           <InputArea>
             <Label>이름</Label>
-            <ValueInput {...register('name')} />
-            {errors.name && <Error>{errors.name.message}</Error>}
+            <ValueInput {...register('user_name')} />
+            {errors.user_name && <Error>{errors.user_name.message}</Error>}
           </InputArea>
 
           <InputArea>

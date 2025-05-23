@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/members")
 @RequiredArgsConstructor
@@ -22,9 +23,16 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<MemberDto.Response> findMember(@PathVariable String userId) {
+    public ResponseEntity<MemberDto.Response> login(@RequestBody MemberDto.LoginRequestDto loginRequest) {
+        MemberDto.Response member = memberService.login(loginRequest.getUser_id(), loginRequest.getUser_pwd());
+        return ResponseEntity.ok(member);
+    }
 
-        return null;
+    //회원삭제
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteMember(@PathVariable String userId) {
+        memberService.deleteMember(userId);
+        return ResponseEntity.ok().build();
     }
 
 

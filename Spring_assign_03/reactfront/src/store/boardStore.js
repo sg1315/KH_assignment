@@ -12,7 +12,7 @@ const useBoardStore = create((set) => ({
     set({ loading: true, error: null });
 
     try {
-      const res = await axios.get('http://localhost:3001/boards');
+      const res = await axios.get('http://localhost:8888/api/boards');
 
       const sorted = res.data.sort((a, b) => b.id - a.id);
       set({
@@ -62,18 +62,12 @@ const useBoardStore = create((set) => ({
   },
 
   addBoard: async (formData, userId) => {
-    const res = await axios.get('http://localhost:3001/boards');
-    const boards = res.data;
-    const maxId = boards.length > 0 ? Math.max(...boards.map((board) => board.id)) : 0;
-
     const newBoard = {
       ...formData,
-      id: (maxId + 1).toString(),
-      userId: userId || '알 수 없음',
-      createDate: dayjs().format('YY.MM.DD'),
+      board_writer: userId || '알 수 없음',
     };
 
-    await axios.post('http://localhost:3001/boards', newBoard);
+    await axios.post('http://localhost:8888/api/boards', newBoard);
     set((state) => ({ boards: [...state.boards, newBoard] }));
   },
 

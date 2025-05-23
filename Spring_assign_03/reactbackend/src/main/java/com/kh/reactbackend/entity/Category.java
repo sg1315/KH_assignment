@@ -20,6 +20,7 @@ public class Category {
     private int categoryId;
 
     @Column(name = "category_name", length = 30, nullable = false, unique = true)
+    private String categoryName;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Board> boards = new ArrayList<>();

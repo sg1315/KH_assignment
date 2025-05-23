@@ -37,11 +37,11 @@ const UserInfo = () => {
         <MiddleArea>
           <InfoArea>
             <InfoLabel>아이디 :</InfoLabel>
-            <InfoText>{user.id}</InfoText>
+            <InfoText>{user.user_id}</InfoText>
           </InfoArea>
           <InfoArea>
             <InfoLabel>이름 :</InfoLabel>
-            <InfoText>{user.name}</InfoText>
+            <InfoText>{user.user_name}</InfoText>
           </InfoArea>
           <InfoArea>
             <InfoLabel>이메일 :</InfoLabel>

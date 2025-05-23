@@ -21,6 +21,19 @@ public class MemberServiceImpl implements MemberService {
         return member.getUserId();
     }
 
+    @Override
+    public MemberDto.Response login(String userId, String userPassword) {
+        Member member = memberRepository.findOne(userId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+
+        if(!member.getUserPwd().equals(userPassword)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        return MemberDto.Response.toDto(member);
+    }
+
+
     @Transactional(readOnly = true)
     @Override
     public MemberDto.Response findMember(String userId) {

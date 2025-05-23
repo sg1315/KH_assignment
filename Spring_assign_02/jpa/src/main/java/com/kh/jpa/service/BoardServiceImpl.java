@@ -7,6 +7,7 @@ import com.kh.jpa.entity.Member;
 import com.kh.jpa.entity.Tag;
 import com.kh.jpa.enums.CommonEnums;
 import com.kh.jpa.repository.BoardRepository;
+import com.kh.jpa.repository.BoardRepositoryV2;
 import com.kh.jpa.repository.MemberRepository;
 import com.kh.jpa.repository.TagRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -39,8 +40,10 @@ public class BoardServiceImpl implements BoardService {
             getTotalElements() 전체 데이터 수
             getSize() 페이지당 데이터 수
          */
-        Page<Board> page = boardRepository.findByStatus(CommonEnums.Status.Y, pageable);
-        return page.map(BoardDto.Response::toSimpleDto);
+//        Page<Board> page = boardRepositoryV2.findByStatus(CommonEnums.Status.Y, pageable);
+
+//        return page.map(BoardDto.Response::toSimpleDto);
+        return null;
     }
 
     @Transactional(readOnly = true)

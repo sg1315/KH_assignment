@@ -6,10 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface BoardRepository {
+public interface BoardRepositoryV2 extends JpaRepository<Board, Long> {
     Page<Board> findByStatus(CommonEnums.Status status, Pageable pageable);
     Optional<Board> findById(Long boardNo);
     Long save(Board board);
