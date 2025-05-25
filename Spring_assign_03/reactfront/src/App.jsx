@@ -26,8 +26,8 @@ function App() {
         <Route path="/userEnroll" element={<UserEnroll />} />
         <Route path='/userInfo' element={<UserInfo/>} />
         <Route path="/enrollBoard" element={<BoardEnroll />} />
-        <Route path='/boards/:id' element={<BoardDetail />} />
-        <Route path='/boards/edit/:id' element={<BoardEdit />} />
+        <Route path='/boards/:board_no' element={<BoardDetail />} />
+        <Route path='/boards/edit/:board_no' element={<BoardEdit />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer />

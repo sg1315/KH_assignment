@@ -40,10 +40,9 @@ public class BoardServiceImpl implements BoardService {
             getTotalElements() 전체 데이터 수
             getSize() 페이지당 데이터 수
          */
-//        Page<Board> page = boardRepositoryV2.findByStatus(CommonEnums.Status.Y, pageable);
+        Page<Board> page = boardRepository.findByStatus(CommonEnums.Status.Y, pageable);
 
-//        return page.map(BoardDto.Response::toSimpleDto);
-        return null;
+        return page.map(BoardDto.Response::toSimpleDto);
     }
 
     @Transactional(readOnly = true)

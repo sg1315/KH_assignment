@@ -23,7 +23,7 @@ import {
 } from '../components/styled/BoardDetail';
 
 const BoardDetail = () => {
-  const { id } = useParams();
+  const { board_no } = useParams();
   const [board, setBoard] = useState(null);
   const { getBoardDetail, deleteBoard } = useBoardStore();
   const { user, isAuthenticated } = useUserStore();
@@ -33,7 +33,7 @@ const BoardDetail = () => {
   useEffect(() => {
     const fetchBoard = async () => {
       try {
-        const boardData = await getBoardDetail(id);
+        const boardData = await getBoardDetail(board_no);
         setBoard(boardData);
       } catch (error) {
         console.error('게시글 정보를 가져오는 데 실패했습니다.', error);
@@ -41,18 +41,18 @@ const BoardDetail = () => {
     };
 
     fetchBoard();
-  }, [id, getBoardDetail]);
+  }, [board_no, getBoardDetail]);
 
   useEffect(() => {
-    getReplysByBoardId(id);
-  }, [id]);
+    getReplysByBoardId(board_no);
+  }, [board_no]);
 
   if (!board) return <div>Loading...</div>;
 
-  const canEditOrDelete = isAuthenticated && user.id === board.userId;
+  const canEditOrDelete = isAuthenticated && user.user_id === board.board_writer;
 
   const boardEdit = () => {
-    navigate(`/boards/edit/${board.id}`);
+    navigate(`/boards/edit/${board.board_no}`);
   };
 
   const boardDelete = async () => {
@@ -60,7 +60,7 @@ const BoardDetail = () => {
     if (!confirmDelete) return;
 
     try {
-      await deleteBoard(board.id);
+      await deleteBoard(board.board_no);
       alert('게시글이 삭제되었습니다.');
       navigate('/');
     } catch (error) {
@@ -73,11 +73,11 @@ const BoardDetail = () => {
       <Content>
         <TopArear>
           <TitleArea>
-            [{board.category}] {board.title}
+            [{board.category}] {board.board_title}
           </TitleArea>
           <WriterArea>
             <WriterLeft>
-              {board.userId} | {board.createDate}
+              {board.board_writer} | {board.create_date}
             </WriterLeft>
             <WriterRight>
               {canEditOrDelete && (
@@ -89,17 +89,17 @@ const BoardDetail = () => {
             </WriterRight>
           </WriterArea>
         </TopArear>
-        <CenterArea>{board.content}</CenterArea>
+        <CenterArea>{board.board_content}</CenterArea>
       </Content>
       <ReplyArea>
         <ReplyAdd />
         <ReplyList>
           {replys.map((reply) => (
-            <ReplyContent>
-              <ReplyUser key={reply.id}>{reply.userId}</ReplyUser>
+            <ReplyContent key={reply.reply_no}>
+              <ReplyUser>{reply.reply_writer}</ReplyUser>
               <ReplyComent>
-                <div>{reply.coment}</div>
-                <div>{reply.createDate}</div>
+                <span>{reply.reply_content}</span>
+                <span>{reply.create_date}</span>
               </ReplyComent>
             </ReplyContent>
           ))}

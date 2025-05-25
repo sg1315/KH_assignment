@@ -7,10 +7,10 @@ const useReplyStore = create((set) => ({
   loading: false,
   error: null,
 
-  getReplysByBoardId: async (boardId) => {
+  getReplysByBoardId: async (boardNo) => {
     set({ loading: true, error: null });
     try {
-      const res = await axios.get(`http://localhost:3001/replys?boardId=${boardId}`);
+      const res = await axios.get(`http://localhost:8888/api/replys/${boardNo}`);
       set({ replys: res.data, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });
@@ -19,7 +19,7 @@ const useReplyStore = create((set) => ({
 
   addReply: async (newReply) => {
     try {
-      const res = await axios.post('http://localhost:3001/replys', newReply);
+      const res = await axios.post('http://localhost:8888/api/replys', newReply);
       set((state) => ({
         replys: [...state.replys, res.data],
       }));

@@ -14,7 +14,7 @@ import {
 } from '../components/styled/BoardEdit';
 
 const BoardEdit = () => {
-  const { id } = useParams();
+  const { board_no } = useParams();
   const navigate = useNavigate();
   const { getBoardDetail, updateBoard } = useBoardStore();
   const [board, setBoard] = useState(null);
@@ -30,13 +30,13 @@ const BoardEdit = () => {
   useEffect(() => {
     const fetchBoard = async () => {
       try {
-        const data = await getBoardDetail(id);
+        const data = await getBoardDetail(board_no);
         setBoard(data);
 
         // 폼에 기존 값 설정
         setValue('category', data.category);
-        setValue('title', data.title);
-        setValue('content', data.content);
+        setValue('board_title', data.board_title);
+        setValue('board_content', data.board_content);
       } catch {
         alert('게시글을 불러오는 데 실패했습니다.');
         navigate('/');
@@ -44,13 +44,13 @@ const BoardEdit = () => {
     };
 
     fetchBoard();
-  }, [id, setValue, navigate]);
+  }, [board_no, setValue, navigate]);
 
   const onSubmit = async (formData) => {
     try {
-      await updateBoard(id, formData);
+      await updateBoard(board_no, formData);
       alert('게시글이 수정되었습니다.');
-      navigate(`/boards/${id}`);
+      navigate(`/boards/${board_no}`);
     } catch (error) {
       console.error(error);
       alert('수정 중 오류가 발생했습니다.');
@@ -69,12 +69,12 @@ const BoardEdit = () => {
             <option value="책">책</option>
           </Select>
 
-          <TitleInput type="text" {...register('title', { required: '제목을 입력하세요.' })} />
-          {errors.title && <p>{errors.title.message}</p>}
+          <TitleInput type="text" {...register('board_title', { required: '제목을 입력하세요.' })} />
+          {errors.board_title && <p>{errors.board_title.message}</p>}
         </TopArear>
 
-        <TextArea {...register('content', { required: '내용을 입력하세요.' })} />
-        {errors.content && <p>{errors.content.message}</p>}
+        <TextArea {...register('board_content', { required: '내용을 입력하세요.' })} />
+        {errors.board_content && <p>{errors.board_content.message}</p>}
 
         <ButtonArea>
           <SubmitButton type="submit">수정 완료</SubmitButton>

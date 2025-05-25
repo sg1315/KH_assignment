@@ -9,7 +9,7 @@ import { ReplyInputBox, ReplyInput, ReplyButton } from './styled/ReplyAdd';
 const ReplyAdd = () => {
   const [coment, setComent] = useState('');
   const { user, isAuthenticated } = useUserStore();
-  const { id: boardId } = useParams();
+  const { board_no } = useParams();
   const { addReply, getReplysByBoardId } = useReplyStore();
   const navigate = useNavigate();
 
@@ -25,14 +25,13 @@ const ReplyAdd = () => {
     }
 
     const newReply = {
-      boardId,
-      userId: user?.id || 'anonymous',
-      coment,
-      createDate: dayjs().format('YY.MM.DD'),
+      ref_bno: Number(board_no),
+      reply_writer: user?.user_id || 'anonymous',
+      reply_content: coment,
     };
 
     await addReply(newReply);
-    await getReplysByBoardId(boardId); // 등록 후 새로고침
+    await getReplysByBoardId(board_no); // 등록 후 새로고침
     setComent('');
   };
 

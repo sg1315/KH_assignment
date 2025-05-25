@@ -100,14 +100,14 @@ const BoardList = () => {
         </thead>
         <tbody>
           {currentBoards.map((board) => (
-            <tr key={board.id}>
-              <td>{board.id}</td>
+            <tr key={board.board_no}>
+              <td>{board.board_no}</td>
               <td>{board.category}</td>
-              <td className="title" onClick={() => navigate(`/boards/${board.id}`)} style={{ cursor: 'pointer' }}>
-                {board.title}
+              <td className="title" onClick={() => navigate(`/boards/${board.board_no}`)} style={{ cursor: 'pointer' }}>
+                {board.board_title}
               </td>
-              <td>{board.userId}</td>
-              <td>{board.createDate}</td>
+              <td>{board.board_writer}</td>
+              <td>{board.create_date}</td>
             </tr>
           ))}
         </tbody>

@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import axios from 'axios';
-import dayjs from 'dayjs';
 
 const useBoardStore = create((set) => ({
   boards: [],
@@ -14,10 +13,16 @@ const useBoardStore = create((set) => ({
     try {
       const res = await axios.get('http://localhost:8888/api/boards');
 
-      const sorted = res.data.sort((a, b) => b.id - a.id);
+      const formatted = res.data
+      .sort((a, b) => b.board_no - a.board_no)
+      .map((board) => ({
+        ...board,
+        create_date: board.create_date.slice(0, 10),
+      }));
+
       set({
-        boards: sorted,
-        filteredBoards: sorted,
+        boards: formatted,
+        filteredBoards: formatted,
         loading: false,
       });
     } catch (error) {
@@ -41,9 +46,9 @@ const useBoardStore = create((set) => ({
       const lowerKeyword = keyword.toLowerCase().trim();
 
       const filtered = state.boards.filter((board) => {
-        const title = board.title?.toLowerCase() || '';
-        const content = board.content?.toLowerCase() || '';
-        const writer = board.userId?.toLowerCase() || '';
+        const title = board.board_title?.toLowerCase() || '';
+        const content = board.board_content?.toLowerCase() || '';
+        const writer = board.board_writer?.toLowerCase() || '';
 
         switch (type) {
           case 'title':
@@ -71,31 +76,37 @@ const useBoardStore = create((set) => ({
     set((state) => ({ boards: [...state.boards, newBoard] }));
   },
 
-  getBoardDetail: async (boardId) => {
+  getBoardDetail: async (boardNo) => {
     try {
-      const res = await axios.get(`http://localhost:3001/boards/${boardId}`);
-      return res.data;
+      const res = await axios.get(`http://localhost:8888/api/boards/${boardNo}`);
+      const formattedData = {
+        ...res.data,
+        create_date: res.data.create_date.slice(0, 10),
+      };
+
+    return formattedData;
     } catch (error) {
       console.error('게시글 가져오기 실패:', error);
+
       throw new Error('게시글 정보를 가져오는 데 실패했습니다.');
     }
   },
 
-  updateBoard: async (id, updatedData) => {
+  updateBoard: async (boardNo, updatedData) => {
     try {
-      await axios.patch(`http://localhost:3001/boards/${id}`, updatedData);
+      await axios.patch(`http://localhost:8888/api/boards/${boardNo}`, updatedData);
     } catch (error) {
       console.error('게시글 수정 실패:', error);
       throw new Error('게시글 수정에 실패했습니다.');
     }
   },
 
-  deleteBoard: async (id) => {
+  deleteBoard: async (boardNo) => {
     try {
-      await axios.delete(`http://localhost:3001/boards/${id}`);
+      await axios.delete(`http://localhost:8888/api/boards/${boardNo}`);
       set((state) => ({
-        boards: state.boards.filter((board) => board.id !== id),
-        filteredBoards: state.filteredBoards.filter((board) => board.id !== id),
+        boards: state.boards.filter((board) => board.board_no !== boardNo),
+        filteredBoards: state.filteredBoards.filter((board) => board.board_no !== boardNo),
       }));
     } catch (error) {
       console.error('게시글 삭제 실패:', error);

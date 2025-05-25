@@ -21,7 +21,7 @@ public class Reply {
 
     @Lob
     @Column(name = "reply_content", length = 400, nullable = false)
-    private Clob replyContent;
+    private String replyContent;
 
     //어떤게시글의 댓글인지 게시글 정보
     //댓글 : 게시글 (N : 1)
@@ -37,6 +37,21 @@ public class Reply {
 
     @Column(name = "create_date", nullable = false, updatable = false)
     private LocalDateTime createDate;
+
+
+    public void changeBoard(Board board) {
+        this.board = board;
+        if(!board.getReplies().contains(this)) {
+            board.getReplies().add(this);
+        }
+    }
+
+    public void changeMember(Member member) {
+        this.member = member;
+        if(!member.getReplies().contains(this)) {
+            member.getReplies().add(this);
+        }
+    }
 
     @PrePersist
     protected void prePersist() {
