@@ -36,6 +36,5 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         return em.createQuery(query, Notice.class)
                 .setParameter("title", "%" + title + "%")
                 .getResultList();
-
     }
 }
